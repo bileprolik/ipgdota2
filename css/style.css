@@ -22,7 +22,7 @@ a:hover {
 }
 
 .form {
-  background: rgba(19, 35, 47, 0.9); 
+
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
@@ -55,11 +55,11 @@ a:hover {
   transition: .5s ease;
 }
 .tab-group li a:hover {
-  background: #179b77;
+  background: #31708f;
   color: #ffffff;
 }
 .tab-group .active a {
-  background: #1ab188;
+  background: #31708f;
   color: #ffffff;
 }
 
@@ -69,7 +69,7 @@ a:hover {
 
 h1 {
   text-align: center;
-  color: #ffffff;
+
   font-weight: 300;
   margin: 0 0 40px;
 }
@@ -82,13 +82,13 @@ h2 {
 }
 
 span {
-    color: #1ab188;
+
     font-weight: bold;
 }
 
 p {
     text-align: center;
-    color: #ffffff;
+
     margin: 0px 0px 50px 0px;
 }
 
@@ -113,11 +113,12 @@ label {
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
-  font-size: 22px;
+  color:black;
+
 }
 label .req {
   margin: 2px;
-  color: #1ab188;
+  color: #31708f;
 }
 
 label.active {
@@ -125,6 +126,7 @@ label.active {
           transform: translateY(50px);
   left: 2px;
   font-size: 14px;
+  color:black;
 }
 label.active .req {
   opacity: 0;
@@ -138,7 +140,6 @@ input, textarea {
   font-size: 22px;
   display: block;
   width: 100%;
-  height: 100%;
   padding: 5px 10px;
   background: none;
   background-image: none;
@@ -181,19 +182,19 @@ textarea {
   border: 0;
   outline: none;
   border-radius: 0;
-  padding: 15px 0;
+
   font-size: 2rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #31708f;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background: #31708f;
 }
 
 .button-block {

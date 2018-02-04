@@ -1,15 +1,16 @@
 <?php
-/* User login process, checks if user exists and password is correct */
-
-// Escape email to protect against SQL injections
+include 'db_config.php';
+global $con;
+$password = $con ->escape_string($_POST['password']);
 $email = $con->escape_string($_POST['email']);
 $result = $con->query("SELECT * FROM users WHERE email='$email'");
 
-if ( $result->num_rows == 0 ){ // User doesn't exist
+
+if ( $result->num_rows == 0 ){
     $_SESSION['message'] = "Uneti podaci ne odgovaraju nijednom korisniku!";
     header("location: error.php");
 }
-else { // User exists
+else {
     $user = $result->fetch_assoc();
 
     if ( password_verify($_POST['password'], $user['password']) ) {
@@ -19,7 +20,7 @@ else { // User exists
         $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['active'] = $user['active'];
         
-        // This is how we'll know the user is logged in
+
         $_SESSION['logged_in'] = true;
 
         header("location: profile.php");

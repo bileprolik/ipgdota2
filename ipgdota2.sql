@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 18, 2017 at 09:53 PM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 08, 2018 at 01:07 AM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,15 +25,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `g_id` int(11) NOT NULL,
+  `ip_add` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `galerija`
 --
 
-CREATE TABLE `galerija` (
-  `id_slika` int(11) NOT NULL,
+DROP TABLE IF EXISTS `galerija`;
+CREATE TABLE IF NOT EXISTS `galerija` (
+  `id_slika` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `id_guma` int(11) NOT NULL,
   `slika` text NOT NULL,
-  `opis` text NOT NULL
+  `opis` text NOT NULL,
+  PRIMARY KEY (`id_slika`),
+  KEY `id_user` (`id_user`),
+  KEY `id_guma` (`id_guma`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -40,18 +58,31 @@ CREATE TABLE `galerija` (
 -- Table structure for table `gume`
 --
 
-CREATE TABLE `gume` (
-  `id_guma` int(11) NOT NULL,
+DROP TABLE IF EXISTS `gume`;
+CREATE TABLE IF NOT EXISTS `gume` (
+  `id_guma` int(11) NOT NULL AUTO_INCREMENT,
   `id_marka` int(10) NOT NULL,
   `visina` int(10) NOT NULL,
   `sirina` int(10) NOT NULL,
-  `precnik` int(10) NOT NULL,
-  `opterecenje` int(10) NOT NULL,
+  `precnik` varchar(10) NOT NULL,
+  `opterecenje` varchar(10) NOT NULL,
   `indeks_brzine` text NOT NULL,
   `id_sezona` int(10) NOT NULL,
-  `cena` int(10) NOT NULL,
-  `garancija` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `cena` varchar(10) NOT NULL,
+  `slika` varchar(200) NOT NULL,
+  `garancija` int(10) NOT NULL,
+  PRIMARY KEY (`id_guma`),
+  KEY `id_marka` (`id_marka`),
+  KEY `id_sezona` (`id_sezona`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gume`
+--
+
+INSERT INTO `gume` (`id_guma`, `id_marka`, `visina`, `sirina`, `precnik`, `opterecenje`, `indeks_brzine`, `id_sezona`, `cena`, `slika`, `garancija`) VALUES
+(2, 1, 40, 225, 'R18', '92', '240', 2, '6626', 'tigar.jpg', 36),
+(3, 2, 55, 245, '18', '97', '210', 1, '7480', 'starfire-wt-200.jpg', 36);
 
 -- --------------------------------------------------------
 
@@ -59,10 +90,25 @@ CREATE TABLE `gume` (
 -- Table structure for table `marka`
 --
 
-CREATE TABLE `marka` (
-  `id_marka` int(11) NOT NULL,
-  `marka` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `marka`;
+CREATE TABLE IF NOT EXISTS `marka` (
+  `id_marka` int(11) NOT NULL AUTO_INCREMENT,
+  `marka` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_marka`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `marka`
+--
+
+INSERT INTO `marka` (`id_marka`, `marka`) VALUES
+(1, 'Tigar'),
+(2, 'Starfire'),
+(3, 'Cordiant'),
+(4, 'Nokian'),
+(5, 'Michelin'),
+(6, 'Sava'),
+(7, 'Goodyear');
 
 -- --------------------------------------------------------
 
@@ -70,9 +116,13 @@ CREATE TABLE `marka` (
 -- Table structure for table `mesto`
 --
 
-CREATE TABLE `mesto` (
+DROP TABLE IF EXISTS `mesto`;
+CREATE TABLE IF NOT EXISTS `mesto` (
   `id_adresa` int(11) NOT NULL DEFAULT '0',
-  `nazivMesta` varchar(50) DEFAULT NULL
+  `nazivMesta` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_adresa`),
+  KEY `idMesta` (`id_adresa`),
+  KEY `id_adresa` (`id_adresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1607,8 +1657,9 @@ INSERT INTO `mesto` (`id_adresa`, `nazivMesta`) VALUES
 -- Table structure for table `narudzba`
 --
 
-CREATE TABLE `narudzba` (
-  `id_narudzba` int(11) NOT NULL,
+DROP TABLE IF EXISTS `narudzba`;
+CREATE TABLE IF NOT EXISTS `narudzba` (
+  `id_narudzba` int(11) NOT NULL AUTO_INCREMENT,
   `id_gume` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `Ime` varchar(100) NOT NULL,
@@ -1616,7 +1667,11 @@ CREATE TABLE `narudzba` (
   `adresa` text NOT NULL,
   `id_adresa` int(10) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `br_mob` varchar(15) NOT NULL
+  `br_mob` varchar(15) NOT NULL,
+  PRIMARY KEY (`id_narudzba`),
+  KEY `id_gume` (`id_gume`),
+  KEY `id_adresa` (`id_adresa`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1625,10 +1680,20 @@ CREATE TABLE `narudzba` (
 -- Table structure for table `sezona`
 --
 
-CREATE TABLE `sezona` (
-  `id_sezona` int(11) NOT NULL,
-  `sezona` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `sezona`;
+CREATE TABLE IF NOT EXISTS `sezona` (
+  `id_sezona` int(11) NOT NULL AUTO_INCREMENT,
+  `sezona` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_sezona`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sezona`
+--
+
+INSERT INTO `sezona` (`id_sezona`, `sezona`) VALUES
+(1, 'leto'),
+(2, 'zima');
 
 -- --------------------------------------------------------
 
@@ -1636,105 +1701,37 @@ CREATE TABLE `sezona` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id_user` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `hash` varchar(32) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `users`
 --
 
---
--- Indexes for table `galerija`
---
-ALTER TABLE `galerija`
-  ADD PRIMARY KEY (`id_slika`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_guma` (`id_guma`);
+INSERT INTO `users` (`id_user`, `first_name`, `last_name`, `email`, `password`, `hash`, `active`) VALUES
+(1, 'Stevica', 'Radovanovic', 'Nikola@bibeti.com', '$2y$10$R.AU1siIQqddzdzP.dlSCeawL.i/fH4GA5bDZdDFUukOI3IsgozHa', 'e07413354875be01a996dc560274708e', 0),
+(2, 'sdsa', 'dsadas', 'foubluse@yahoo.com', '$2y$10$X8I35FtvMvsJTFn0RFrOZe/csZwhlJfbijgVf9c598cCMkW2A/PRm', '15de21c670ae7c3f6f3f1f37029303c9', 0),
+(3, 'Dane', 'Danica', 'dana@dana.com', '$2y$10$HFjvWqnUqqUHAqKmkKiyOumNzBt6kI83A4V3tb5XZJvbpbmqouaJa', 'c0c7c76d30bd3dcaefc96f40275bdc0a', 1),
+(4, 'Nikola', 'Doktor', 'nidzo@nidzo', '$2y$10$iJYlcpv6xkLvp0mWOYMQ9umTAVgOO8ds74Ioe4n/ShWB8UKXVx/7q', '72da7fd6d1302c0a159f6436d01e9eb0', 1),
+(5, 'blyat', 'blyat', 'blyat@blyat', '$2y$10$CTBsw1hoU3gkIM2jtYp3g.HGeZ.qUkrjtbGMrBPTV2RK8F1WsBkB6', '2f2b265625d76a6704b08093c652fd79', 1),
+(6, 'bibic', 'nikola', 'nikola@bibic.com', '$2y$10$MXrIVDIOKaZWTXU.QHmrOuPdIEI73qn7CQaDXsIHvoUJAai2RYj3y', 'f73b76ce8949fe29bf2a537cfa420e8f', 0),
+(7, 'milos', 'mijatovic', 'mitjo@mitjo.com', '$2y$10$dz27CjqfFbP04HESHf7b6OAPyCQBSVmnCGnH.tNG0D3PFcBdtlXo2', '9b72e31dac81715466cd580a448cf823', 0),
+(8, 'sadsad', 'asdsadas', 'asdas@dsadsa', '$2y$10$0Bh8KZQlTXjF/dyMynnPEuHuLYRqm2TCrI1kNF5ORdFRMcDVs2Np.', '430c3626b879b4005d41b8a46172e0c0', 0),
+(9, 'sadsa', 'sadad', 'asdsad@dsad', '$2y$10$0cMePqBzkUp/fOo29w6ICuseqrvthcAWWpmy.RD6L2DQgjnxuh1Fy', '76dc611d6ebaafc66cc0879c71b5db5c', 0),
+(10, 'asdad', 'asdasd', 'asdsa@dsadas', '$2y$10$lx5N7ID10WMXq5wiDswk5OSe8dvfFc9GZBDaaK7TIEtEdsn6tNv2O', 'eda80a3d5b344bc40f3bc04f65b7a357', 0),
+(11, 'sada', 'asdad', 'sadsa@dsada', '$2y$10$rBzWqhmC1iNpXMS.1q7ake9cp95G9ccfPO9GQa9142X.qvxtUDGcK', '839ab46820b524afda05122893c2fe8e', 0),
+(12, 'nenad', 'nenad', 'nenad@nenad.com', '$2y$10$8sGVBZgxeTg6VOEnk/aImeqQSIoGgo8ns8TwvQTipDCRZtjnWB6Xe', '9b70e8fe62e40c570a322f1b0b659098', 0),
+(13, 'nenad', 'nenad', 'nesho@nesho', '$2y$10$dUms6vlVeISIw6L7jJmwf.eQRwBjdVEBZl4t71Y9wJKkY.vYg1fzq', '42e7aaa88b48137a16a1acd04ed91125', 1);
 
---
--- Indexes for table `gume`
---
-ALTER TABLE `gume`
-  ADD PRIMARY KEY (`id_guma`),
-  ADD KEY `id_marka` (`id_marka`),
-  ADD KEY `id_sezona` (`id_sezona`);
-
---
--- Indexes for table `marka`
---
-ALTER TABLE `marka`
-  ADD PRIMARY KEY (`id_marka`);
-
---
--- Indexes for table `mesto`
---
-ALTER TABLE `mesto`
-  ADD PRIMARY KEY (`id_adresa`),
-  ADD KEY `idMesta` (`id_adresa`),
-  ADD KEY `id_adresa` (`id_adresa`);
-
---
--- Indexes for table `narudzba`
---
-ALTER TABLE `narudzba`
-  ADD PRIMARY KEY (`id_narudzba`),
-  ADD KEY `id_gume` (`id_gume`),
-  ADD KEY `id_adresa` (`id_adresa`),
-  ADD KEY `id_user` (`id_user`);
-
---
--- Indexes for table `sezona`
---
-ALTER TABLE `sezona`
-  ADD PRIMARY KEY (`id_sezona`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `galerija`
---
-ALTER TABLE `galerija`
-  MODIFY `id_slika` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `gume`
---
-ALTER TABLE `gume`
-  MODIFY `id_guma` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `marka`
---
-ALTER TABLE `marka`
-  MODIFY `id_marka` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `narudzba`
---
-ALTER TABLE `narudzba`
-  MODIFY `id_narudzba` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `sezona`
---
-ALTER TABLE `sezona`
-  MODIFY `id_sezona` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -1760,6 +1757,7 @@ ALTER TABLE `narudzba`
   ADD CONSTRAINT `narudzba_ibfk_1` FOREIGN KEY (`id_adresa`) REFERENCES `mesto` (`id_adresa`),
   ADD CONSTRAINT `narudzba_ibfk_2` FOREIGN KEY (`id_gume`) REFERENCES `gume` (`id_guma`),
   ADD CONSTRAINT `narudzba_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

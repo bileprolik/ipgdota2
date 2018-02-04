@@ -69,6 +69,23 @@ $('.tab a').on('click', function (e) {
 
 
 
+jQuery(function ($) {
+    $('#kupci').validate({
+        rules: {},
+        messages: {},
+        submitHandler: function () {
+            return false
+        }
+    });
+    $('input[name^="field"]').rules('add', {
+        required: true,
+        accept: "image/jpeg, image/pjpeg"
+    })
+})
+
+
+
+
 
 
 
