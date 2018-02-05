@@ -17,22 +17,22 @@ include ("function/functions.php");
 </head>
 <body>
 <!--Creating a form for inserting a product-->
-<div style="background-color:background-color: #e7e5e4; ">
-<form action="insert_tires.php" method="post" enctype="multipart/form-data" style="color:black">
-    <table align="center" width="795" border="2" >
+<div style="background-color:background-color: #e7e5e4;">
+<form action="insert_tires.php" method="post" enctype="multipart/form-data" style="color:black;text-align: center ">
+    <table align="center" width="100%"  >
         <tr align="center">
             <!-- Form name -->
-            <td colspan="7"><h2 style="color: #000">Ubacivanje novog proizvoda</h2></td>
+            <td colspan="7" style="text-align: center"><h2 style="color: #000">Ubacivanje novog proizvoda</h2></td>
         </tr>
         <!--<tr>
             <td align="right" style="color:#fff"><b>Tire Title:</b></td>
             <td><input type="text" name="product_title" required/></td>
         </tr>-->
         <!-- Tire Brand -->
-        <tr>
+        <tr style="">
             <td align="right" style="color: #000"><b>Marka gume:</b></td>
             <td>
-                <select name="id_marka">
+                <select id="soflow" name="id_marka">
                     <option>Izaberite marku:</option>
                     <?php
                    $get_brands = "select * from marka";
@@ -53,45 +53,46 @@ include ("function/functions.php");
         <!-- Image -->
         <tr>
             <td align="right"style="color: #000"><b>Slika proizvoda:</b></td>
-            <td><input type="file" name="slika"></td>
+            <td><input type="file" name="slika" style="margin-left: 20px"></td>
         </tr>
+
 
         <!-- Height -->
         <tr>
             <td align="right" style="color: #000"><b>Visina gume:</b></td>
-            <td><input type="text" name="visina" required/></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="visina" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Width -->
         <tr>
             <td align="right" style="color: #000"><b>Širina gume:</b></td>
-            <td><input type="text" name="sirina" required/></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="sirina" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Diameter -->
         <tr>
             <td align="right" style="color: #000"><b>Prečnik:</b></td>
-            <td><input type="text" name="precnik" required/></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="precnik" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Load -->
 
         <tr>
             <td align="right" style="color: #000"><b>Opterećenje:</b></td>
-            <td><input type="text" name="opterecenje" required/></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="opterecenje" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Speed index -->
         <tr>
             <td align="right" style="color: #000"><b>Indeks brzine:</b></td>
-            <td><input type="text" name="indeks_brzine" required/></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="indeks_brzine" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Season -->
         <tr>
             <td align="right" style="color:color: #000"><b>Sezona:</b></td>
             <td>
-                <select name="id_sezona">
+                <select id="soflow" name="id_sezona">
                     <option>Izaberite sezonu:</option>
                     <?php
                     $get_sezona = "select * from sezona";
@@ -114,18 +115,18 @@ include ("function/functions.php");
 
         <tr>
             <td align="right"style="color: #000"><b>Cena:</b></td>
-            <td><input type="text" name="cena"></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="cena" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <tr>
             <td align="right"style="color: #000"><b>Garancija:</b></td>
-            <td><input type="text" name="garancija"></td>
+            <td><div style="position: relative"><input type="text" style="margin-left: 20px" class="effect-1" name="garancija" required/><span class="focus-border"></span></div></td>
         </tr>
 
         <!-- Button - insert -->
         <tr>
 
-            <td colspan="7" align="center"><input type="submit" name="insert_post" value="Ubacite novi proizvod"></td>
+            <td colspan="7" align="center"><input type="submit" style="margin-top: 20px" name="insert_post" value="Ubacite novi proizvod"></td>
         </tr>
     </table>
 </form>

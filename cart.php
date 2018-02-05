@@ -149,14 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 if(isset($_SESSION['email'])) {
 
                                     echo "<li class=\"dropdown\">
-                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Hello {$_SESSION['email']}<span class=\"caret\"></span></a>
+                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Dobrodošli {$_SESSION['first_name']}<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu brands\" style=\"font-family: 'Bebas Neue Regular'; background-color:  #31708f;color:white\">
-                        <li><a href='#' style='color: white;'>Narudzbe:</a></li>
-                        <li><a href='cart.php' style='color: white;'>Korpa:  <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
+                        <li><a href='narudzba.php' style='color: white;'>Narudzbe: ".broj_narudzbi()." </a></li>
+                        <li><a href='cart.php' style='color: white;'>Korpa: ".suma_proizvoda()."   <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
                         <hr>
-                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena:  RSD </li>
+                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena: ".total_price()."  RSD </li>
                         <hr>
-                        <li style='color:white; font-size:14px'><a href='logout1.php'>Logout</a> </li>
+                        <li style='color:white; font-size:14px'><a href='logout.php'>Logout</a> </li>
                        
                        
                         
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 ?>
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-                                <a class="navbar-brand" style="background-color: #31708f;color: white;"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>ŠKOLSKI PROJEKAT</a>
+                                <a class="navbar-brand" href="slike-kupaca.php" style="background-color: #31708f;color: white;">GALERIJA</a>
                             </ul>
                         </div>
                     </div>
@@ -310,7 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                         <tr align="center">
 
                             <td><input type="checkbox" name="remove[]" value="<?php echo $id_guma;  ?>"/> </td>
-                            <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo "$product_brand $product_sirina $product_visina $product_precnik $product_opterecenje $product_indeks_brzine" ?><br><img src="gume/<?php echo $product_image; ?>" width="80" height="80" </td>
+                            <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo "$product_brand $product_sirina $product_visina $product_precnik $product_opterecenje $product_indeks_brzine" ?><br><img src="product_images/<?php echo $product_image; ?>" width="80" height="80" </td>
                             <td colspan="1" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $qty  ?> </td>
                             <td colspan="2" style="font-family: 'Bebas Neue Regular';color: #858585"><?php echo $total_sum . "&nbsp RSD"  ?></td>
 

@@ -1,5 +1,5 @@
 
-<table width="795" align="center" bgcolor="pink">
+<table width="100%" align="center" bgcolor="pink">
 
 
     <tr align="center">

@@ -6,7 +6,7 @@
 
 </body>
 </html>
-<table width="795" align="center" bgcolor="#AFAFAF" >
+<table width="100%" align="center" bgcolor="#AFAFAF" >
 
     <tr align="center">
         <td colspan="6"><h2 style="color: grey;font-family: 'Bebas Neue Regular'">Pregled svih proizvoda</h2></td>

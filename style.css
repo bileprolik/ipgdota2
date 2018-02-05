@@ -713,6 +713,19 @@ textarea:focus {
     outline-width: 0;
 }
 
+#show
+{
+    display: none;
+}
+
+#show:target{
+    display: block;
+}
+
+
+
+
+
 
 
 

@@ -642,13 +642,14 @@ function narudzba()
     ?>
     <table style="text-align: center" width="100%">
         <tr>
-            <td colspan="5"><h2 style="color: #31708f;font-family: 'Bebas Neue Regular';text-align: center">Vaše porudzbine</h2><hr width="100%"></td>
+            <td colspan="6"><h2 style="color: #31708f;font-family: 'Bebas Neue Regular';text-align: center">Vaše porudzbine</h2><hr width="100%"></td>
         </tr>
     <tr>
         <th style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center">Proizvod<hr></th>
         <th style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585">Kolicina<hr></th>
         <th style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585">Cena<hr></th>
         <th style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585">Isporuka<hr></th>
+        <th style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585">Status<hr></th>
         <th colspan="" style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585">Datum porudzbine<hr width="100%"></th>
     </tr>
 
@@ -665,6 +666,7 @@ function narudzba()
 
     while ($row_data = mysqli_fetch_array($run_data)) {
         $cena = $row_data['cena'];
+        $ukupna_cena = $row_data['Ukupna_cena'];
         $ime = $row_data['Ime'];
         $prezime = $row_data['prezime'];
         $adresa = $row_data['adresa'];
@@ -685,6 +687,9 @@ function narudzba()
         $cena = $row_data ['cena'];
         $garancija = $row_data ['garancija'];
         $qty =$row_data['kolicina'];
+        $status = $row_data['status_narudzbe'];
+
+
 
 
 
@@ -697,9 +702,21 @@ function narudzba()
 
             <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><h5><?php echo $tire_brand.' '.$sirina.' '.$visina.' '.$precnik.' '.$opterecenje.' '.$indeks_brzine ?></h5><br /><img style="width: 200px" src='product_images/<?php echo $slika ?>'></td>
             <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $qty ?></td>
-            <td colspan="" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $cena*$qty .'&nbsp RSD' ?> </td>
+            <td colspan="" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $ukupna_cena .'&nbsp RSD' ?> </td>
             <td colspan="" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center">Adresa isporuke: <br /> Ime i prezime: <?php echo $ime.'     '.$prezime ?> <br /> E-mail: <?php echo $email ?> <br /> Grad : <?php echo $grad ?>
             <br /> Postanski broj: <?php echo $postanski_broj ?> <br /> Adresa: <?php echo $adresa ?> </td>
+            <td colspan="" style="text-align:center;font-family: 'Bebas Neue Regular';color: #858585">
+                <?php if($status == 0)
+                {
+                    echo "Poručeno";
+                }else if($status == 1)
+                {
+                    echo "Priprema";
+                }else if($status ==2 )
+                {
+                    echo "U tranzitu";
+                }
+                ?></td>
             <td colspan="" style="text-align:center;font-family: 'Bebas Neue Regular';color: #858585"><?php echo $datum ?></td>
 
 
@@ -714,6 +731,127 @@ function narudzba()
     <?php } ?>
     </table>
  <?php }
+
+ function total_price()
+ {
+     $total = 0;
+
+     global $con;
+
+     $sql = "SELECT * from users where email = '" . $_SESSION['email'] . "'";
+
+     $run_pro = mysqli_query($con, $sql);
+
+
+     while ($row_pro = mysqli_fetch_array($run_pro)) {
+
+         $id_user = $row_pro['id_user'];
+
+     }
+
+     $sel_price = "select * from cart where id_user='$id_user'";
+
+     $run_price = mysqli_query($con, $sel_price);
+
+     while ($p_price = mysqli_fetch_array($run_price)) {
+
+         $id_cart = $p_price['id_cart'];
+
+         $id_guma = $p_price['g_id'];
+
+         $qty = $p_price['qty'];
+
+         $total_qty = array($p_price['qty']);
+
+
+         $values_qty = array_sum($total_qty);
+
+
+         $pro_price = "select * from gume g JOIN marka m ON g.id_marka = m.id_marka where id_guma='$id_guma'";
+
+         $run_pro_price = mysqli_query($con, $pro_price);
+
+         while ($pp_price = mysqli_fetch_array($run_pro_price)) {
+
+             $product_brand = $pp_price['marka'];
+
+             $product_sirina = $pp_price['sirina'];
+
+             $product_precnik = $pp_price['precnik'];
+
+             $product_indeks_brzine = $pp_price['indeks_brzine'];
+
+             $product_opterecenje = $pp_price['opterecenje'];
+
+             $product_visina = $pp_price['visina'];
+
+             $product_price = array($pp_price['cena']);
+
+             $product_title = $pp_price['id_marka'];
+
+             $product_image = $pp_price['slika'];
+
+             $single_price = $pp_price['cena'];
+
+             $values = array_sum($product_price);
+
+
+             $total += $values * $qty;
+         }
+
+     }
+     return $total;
+ }
+
+function suma_proizvoda()
+{
+
+
+    global $con;
+    $sql = "SELECT * from users where email = '" . $_SESSION['email'] . "'";
+
+    $run_pro = mysqli_query($con, $sql);
+
+
+    while ($row_pro = mysqli_fetch_array($run_pro)) {
+
+        $id_user = $row_pro['id_user'];
+
+    }
+
+    global $con;
+    $get_items = "select * from cart where id_user = $id_user";
+    $run_items = mysqli_query($con, $get_items);
+    $count_items = mysqli_num_rows($run_items);
+
+    return $count_items;
+}
+
+function broj_narudzbi()
+{
+
+
+    global $con;
+    $sql = "SELECT * from users where email = '" . $_SESSION['email'] . "'";
+
+    $run_pro = mysqli_query($con, $sql);
+
+
+    while ($row_pro = mysqli_fetch_array($run_pro)) {
+
+        $id_user = $row_pro['id_user'];
+
+    }
+
+    global $con;
+    $get_items = "select * from narudzba where id_user = $id_user";
+    $run_items = mysqli_query($con, $get_items);
+    $count_items = mysqli_num_rows($run_items);
+
+    return $count_items;
+}
+
+
 
 
 

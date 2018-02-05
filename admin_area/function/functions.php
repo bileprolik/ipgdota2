@@ -685,6 +685,9 @@ function narudzba()
         $cena = $row_data ['cena'];
         $garancija = $row_data ['garancija'];
         $qty =$row_data['kolicina'];
+        $status = $row_data['status_narudzbe'];
+
+
 
 
 
@@ -701,6 +704,7 @@ function narudzba()
             <td colspan="" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center">Adresa isporuke: <br /> Ime i prezime: <?php echo $ime.'     '.$prezime ?> <br /> E-mail: <?php echo $email ?> <br /> Grad : <?php echo $grad ?>
             <br /> Postanski broj: <?php echo $postanski_broj ?> <br /> Adresa: <?php echo $adresa ?> </td>
             <td colspan="" style="text-align:center;font-family: 'Bebas Neue Regular';color: #858585"><?php echo $datum ?></td>
+
 
 
 

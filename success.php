@@ -132,9 +132,9 @@ include ("function/functions.php");
                                 if(isset($_SESSION['email'])) {
 
                                     echo "<li class=\"dropdown\">
-                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Hello {$_SESSION['email']}<span class=\"caret\"></span></a>
+                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Hello {$_SESSION['first_name']}<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu brands\" style=\"font-family: 'Bebas Neue Regular'; background-color:  #31708f;color:white\">
-                        <li><a href='#' style='color: white;'>Narudzbe:</a></li>
+                        <li><a href='narudzba.php' style='color: white;'>Narudzbe:</a></li>
                         <li><a href='cart.php' style='color: white;'>Korpa:  <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
                         <hr>
                         <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena:  RSD </li>
@@ -154,7 +154,7 @@ include ("function/functions.php");
 
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-                                <a class="navbar-brand" style="background-color: #31708f;color: white;"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>ŠKOLSKI PROJEKAT</a>
+                                <a class="navbar-brand" href="slike-kupaca.php" style="background-color: #31708f;color: white;">GALERIJA</a>
                             </ul>
                         </div>
                     </div>

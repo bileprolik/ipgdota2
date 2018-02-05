@@ -81,12 +81,19 @@
 
     <br />
 
+    <a href='index.php?pregled_galerije'><div class=\"center-wrap\">
+            <div class='button'>
+                <a href="index.php?pregled_galerije" style="font-family: 'Bebas Neue Regular'">Pregled galerije<span class='shift'>›</span></a>
+                <div class='mask'></div>
+            </div>
+        </div></a>
 
 
-    <br />
+
+
 
 </div>
-<div style="background-color: #e7e5e4; height: 1400px ">
+<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9" style="background-color: #e7e5e4; height: auto ">
 
     <?php
 
@@ -115,14 +122,24 @@
     {
         include('edit_cat.php');
     }
-    if(isset($_GET['edit_cat']))
-    {
-        include('edit_cat.php');
-    }
+
     if(isset($_GET['pregled_narudzbi']))
     {
         include('pregled_narudzbi.php');
     }
+    if(isset($_GET['izmena_narudzbe']))
+    {
+        include('izmena_narudzbe.php');
+    }
+    if(isset($_GET['pregled_galerije']))
+    {
+        include('pregled_galerije.php');
+    }
+    if(isset($_GET['izmena_slike']))
+    {
+        include('izmena_slike.php');
+    }
+
 
 
     ?>

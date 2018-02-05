@@ -164,14 +164,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 if(isset($_SESSION['email'])) {
 
                                     echo "<li class=\"dropdown\">
-                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Hello {$_SESSION['email']}<span class=\"caret\"></span></a>
+                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Dobrodošli {$_SESSION['first_name']}<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu brands\" style=\"font-family: 'Bebas Neue Regular'; background-color:  #31708f;color:white\">
-                        <li><a href='#' style='color: white;'>Narudzbe:</a></li>
-                        <li><a href='cart.php' style='color: white;'>Korpa:  <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
+                        <li><a href='narudzba.php' style='color: white;'>Narudzbe: ".broj_narudzbi()." </a></li>
+                        <li><a href='cart.php' style='color: white;'>Korpa: ".suma_proizvoda()."   <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
                         <hr>
-                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena:  RSD </li>
+                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena: ".total_price()."  RSD </li>
                         <hr>
-                        <li style='color:white; font-size:14px'><a href='logout1.php'>Logout</a> </li>
+                        <li style='color:white; font-size:14px'><a href='logout.php'>Logout</a> </li>
                        
                        
                         
@@ -405,7 +405,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                             <tr align="center">
 
 
-                                <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo "$product_brand $product_sirina $product_visina $product_precnik $product_opterecenje $product_indeks_brzine" ?><br><img src="gume/<?php echo $product_image; ?>" width="80" height="80" </td>
+                                <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo "$product_brand $product_sirina $product_visina $product_precnik $product_opterecenje $product_indeks_brzine" ?><br><img src="product_images/<?php echo $product_image; ?>" width="80" height="80" </td>
                                 <td colspan="1" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><p id="qty"><?php echo $qty ?></p> </td>
                                 <td colspan="2" style="font-family: 'Bebas Neue Regular';color: #858585"><?php echo $total_sum . "&nbsp RSD"  ?> </td>
 
@@ -417,7 +417,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     global  $id_guma;
                     ?>
                     <tr align="right">
-                        <td colspan="4" style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585"><b>Ukupno: <?php echo $total . "&nbsp RSD"  ?><hr width="100%"></b></td>
+                        <td colspan="4" style="text-align: center;font-family: 'Bebas Neue Regular';color: #858585"><b>Ukupno: <?php echo $total . "&nbsp RSD"  ?><hr width="100%"></b><br />
+                            <input type="text" placeholder="Popust *" name="popust">
+
+                            <?php
+
+                            $error = 0;
+
+                            if(isset($_GET['error']))
+                                $error = $_GET['error'];
+
+                            if($error==1)
+                                echo "Kod za popust je nevažeći!";
+
+
+                            ?>
+                            <br/></td>
                     </tr>
                 <?php } ?>
                 <tr align="center">

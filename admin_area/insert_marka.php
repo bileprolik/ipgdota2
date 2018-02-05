@@ -1,10 +1,14 @@
-<br />
-<form action="" method="post" style="padding:80px;">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<form action="" method="post" style="padding:80px;text-align: center">
 
 
+    <h2>Nova marka</h2>
     <b style="color: grey">Ubacite novu marku:</b>
-    <input type="text" name="new_cat"  required/>
-    <input type="submit" name="add_cat" value="Dodajte marku" />
+    <td><div style="position: relative"><input type="text"  class="effect-1" name="new_cat" required/></div></td>
+    <input type="submit" name="add_cat" style="margin-top: 10px" value="Dodajte marku" />
 
 </form>
 

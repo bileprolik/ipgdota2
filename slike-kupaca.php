@@ -32,7 +32,7 @@ include ("function/functions.php");
     <!-- META TAGS -->
     <meta name="description" content="Prodaja Zimskih i letnjih guma. Velika kolekcija guma za vas automobil. Puno modela guma: Cordiant, Goodyear, Michelin, Nokian, Sava, Starfire, Tigar." />
     <meta name="keywords" content="Gume, Zimske gume, Letnje Gume,Jeftine Gume, Cordiant, Goodyear, Michelin, Nokian, Sava, Starfire, Tigar" />
-    <title>Internet Prodaja Guma - Pocetna stranica</title>
+    <title>Internet Prodaja Guma - Slike Kupaca</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -133,12 +133,12 @@ include ("function/functions.php");
                                 if(isset($_SESSION['email'])) {
 
                                     echo "<li class=\"dropdown\">
-                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Hello {$_SESSION['email']}<span class=\"caret\"></span></a>
+                   <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\"style=\"';\">Dobrodošli {$_SESSION['first_name']}<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu brands\" style=\"font-family: 'Bebas Neue Regular'; background-color:  #31708f;color:white\">
-                        <li><a href='#' style='color: white;'>Narudzbe:</a></li>
-                        <li><a href='cart.php' style='color: white;'>Korpa:  <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
+                        <li><a href='narudzba.php' style='color: white;'>Narudzbe: ".broj_narudzbi()." </a></li>
+                        <li><a href='cart.php' style='color: white;'>Korpa: ".suma_proizvoda()."   <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></li>
                         <hr>
-                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena:  RSD </li>
+                        <li style='color:white;text-align: center font-size:14px'>&nbsp Ukupna cena: ".total_price()."  RSD </li>
                         <hr>
                         <li style='color:white; font-size:14px'><a href='logout.php'>Logout</a> </li>
                        
@@ -155,7 +155,7 @@ include ("function/functions.php");
 
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-                                <a class="navbar-brand" style="background-color: #31708f;color: white;"><span><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>ŠKOLSKI PROJEKAT</a>
+                                <a class="navbar-brand" href="slike-kupaca.php" style="background-color: #31708f;color: white;">GALERIJA</a>
                             </ul>
                         </div>
                     </div>
@@ -189,6 +189,13 @@ include ("function/functions.php");
 <br />
 <br />
 
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10"  id="show"  style="text-align: center;border: 1px solid grey;padding: 0">
+        <h2 style="background-color: yellowgreen;padding: 0;margin: 0">OBAVEŠTENJE</h2>
+        <br />
+        <p><b>Hvala Vam što ste podelili oglas sa nama. Administratori će da pregledaju Vaš zahtev, i nakon odobrenja će biti vidljiv.</b></p>
+
+    </div>
+
 
 
     <?php
@@ -198,7 +205,7 @@ include ("function/functions.php");
     $slike = "SELECT g.*, gg.*, m.*, u.* FROM galerija g 
     JOIN gume gg ON g.id_guma = gg.id_guma
     JOIN marka m ON gg.id_guma = m.id_marka
-    JOIN users u ON g.id_user = u.id_user ORDER BY Datum DESC";
+    JOIN users u ON g.id_user = u.id_user WHERE g.status_slike = '1' ORDER BY Datum DESC";
 
     $run_data = mysqli_query($con, $slike);
 
