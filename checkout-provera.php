@@ -109,8 +109,7 @@ VALUES ($id_guma,$id_user,$qtys,$single_price,$nova_cena,'$first_name','$last_na
                     header("Location: checkout.php?error=1");
                     exit();
                 }
-
-                else {
+                else if(empty($popust)){
 
 
 
@@ -119,7 +118,11 @@ VALUES ($id_guma,$id_user,$qtys,$single_price,$total_sum,'$first_name','$last_na
 
                     (mysqli_query($con, $insert_product) or die(mysqli_error($con)));
                 }
-
+                else if($code != $popust)
+                {
+                    header("Location: checkout.php?error=2");
+                    exit();
+                }
             }
 
 

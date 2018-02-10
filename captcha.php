@@ -30,9 +30,9 @@ $rand = mt_rand(0, 9);
 if($rand < 3)
     $text_color = imagecolorallocate($im, 255, 0, 0);
 else if($rand >=3 && $rand <6)
-    $text_color = imagecolorallocate($im, 0, 255, 0);
+    $text_color = imagecolorallocate($im, 255, 0, 0);
 else if($rand >=6 && $rand <=9)
-    $text_color = imagecolorallocate($im, 0, 255, 255);
+    $text_color = imagecolorallocate($im, 255, 0, 0);
 
 imagettftext($im, 11, 0, 5, 20, $text_color, "arial.ttf", $password);
 

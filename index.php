@@ -376,7 +376,7 @@ include ("function/functions.php");
                             global $con;
                             $get_pro = "SELECT n.*, g.*, m.marka FROM narudzba n
                                JOIN gume g ON n.id_gume = g.id_guma 
-                               JOIN marka m ON g.id_guma = m.id_marka WHERE n.id_user = $id_user GROUP BY m.id_marka";
+                               JOIN marka m ON g.id_marka = m.id_marka WHERE n.id_user = $id_user GROUP BY m.id_marka,n.id_narudzba";
 
                             $run_pro = mysqli_query($con, $get_pro);
 

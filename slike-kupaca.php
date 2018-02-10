@@ -221,6 +221,7 @@ include ("function/functions.php");
         $precnik = $row_data['precnik'];
         $opterecenje = $row_data['opterecenje'];
         $indeks_brzine = $row_data['indeks_brzine'];
+        $datum = $row_data['Datum'];
 
         echo "<div class='col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10' style='border: 1px solid lightgrey;margin-left: '>
 <div class='col-xs-12 col-sm-4 col-md-4   mr-0'  style='padding: 60px;height:auto;text-align: center'><br /><span> 
@@ -232,7 +233,7 @@ include ("function/functions.php");
 $opis_slike
 </div>
 
-<div class='col-xs-12 col-sm-4 col-md-4' style='font-size: 18px;'><b>Postavio:<br/><span style='float: right;color: #31708f'>$id_user </span><br /><br /></b></div>
+<div class='col-xs-12 col-sm-4 col-md-4' style='font-size: 18px;'><b>Datum objave:<br/><span style='float: right;color: #31708f'>$datum </span><br /><br /></b><b>Postavio:<br/><span style='float: right;color: #31708f'>$id_user </span><br /><br /></b></div>
 
 
 

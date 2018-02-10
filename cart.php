@@ -309,16 +309,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                         ?>
                         <tr align="center">
 
-                            <td><input type="checkbox" name="remove[]" value="<?php echo $id_guma;  ?>"/> </td>
+                            <td><input type="checkbox" name="remove[]" value="<?php echo $id_guma;  ?>"/>
+                            <div id="open"></div>
                             <td style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo "$product_brand $product_sirina $product_visina $product_precnik $product_opterecenje $product_indeks_brzine" ?><br><img src="product_images/<?php echo $product_image; ?>" width="80" height="80" </td>
-                            <td colspan="1" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $qty  ?> </td>
-                            <td colspan="2" style="font-family: 'Bebas Neue Regular';color: #858585"><?php echo $total_sum . "&nbsp RSD"  ?></td>
+                            <td colspan="1" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center;max-width: 50px">
+                                <input type='number' size='' pattern='[0-9]*' name="qty" inputmode='numeric' class='form-control input-lg text-center place-order-input ' value='<?php echo $qty ?>' min='1' max='99' id='qty'  style='width: 100%'>
+                            <div  id="row_dim" style="display: none;background-color: #1d93d1">
+                                <input type="submit"  value="Ažuriraj količinu" name="azuriraj_kolicinu" id="azuriraj_kolicinu" style="color:white">
 
+                            </div>
+                            </td>
 
+                            <td colspan="2" style="font-family: 'Bebas Neue Regular';color: #858585;text-align: center"><?php echo $total_sum . "&nbsp RSD"  ?></td>
 
                         </tr>
                     <?php } ?>
                 <?php }  } ?>
+
+            <?php
+
+           /* function update()
+            {
+                global $id_user,$con;
+                if (isset($_POST['azuriraj_kolicinu'])) {
+
+                    foreach ($_POST['remove'] as $id_gumice) {
+
+                        $delete_product = "delete from cart where g_id='3' AND id_user='$id_user'";
+
+                        $run_delete = mysqli_query($con, $delete_product);
+
+                        if($run_delete){
+
+                            echo "<script>window.open('cart.php','_self')</script>";
+
+                        }
+
+                    }
+                }
+            }*/
+
+
+            ?>
+
+
+
+            <script>
+                $("#qty").on("change", function() {
+                    $('#row_dim').show();
+                    var qty = $(this).val();
+                    $(document).ready(function() {
+                        $("#azuriraj_kolicinu").click(function () {
+
+                            $.ajax({
+                                url: 'qty.php',
+                                type: 'GET',
+                                data: { qty: qty },
+                                success: function(data) {
+                                    window.location.href='cart.php';
+                                    $('#result').html(data)
+                                }
+                            });
+
+                        });
+                    })
+                });
+
+            </script>
+
+
+
             <?php if(isset($_SESSION['email'])){
                 
 
@@ -330,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <tr align="center">
                 <td colspan="2" style=";color: #858585"><button class="btn-success" type="submit" name="update_cart" style="background-color: #31708f;border: 3px solid #31708f" "/>Potvrdi</button></td>
                 <td style=";color: #858585"><button class="btn-success" type="submit" name="continue" style="background-color: #31708f;border: 3px solid #31708f"  />Nastavi </td>
-                <td style=";color: #858585"><button class="btn-success" name="poruci" style="background-color: #31708f;border: 3px solid #31708f">Poruči</button></td>
+                <td style=";color: #858585"><button class="btn-success" name="poruci" style="background-color: #31708f;border: 3px solid #31708f"><a href="checkout.php">Poruči</a></button></td>
             </tr>
         </table>
     </form>
@@ -373,10 +433,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo "<script>window.open('gume.php','_self')</script>";
 
         }
-        if(isset($_POST['poruci']))
-        {
-            echo "<script>window.open('checkout.php','_self')</script>";
-        }
+
 
     }
     echo @$up_cart = updatecart();

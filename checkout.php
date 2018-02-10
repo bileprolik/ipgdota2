@@ -428,6 +428,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                                 $error = $_GET['error'];
 
                             if($error==1)
+                                echo "Kod za popust je iskorišćen!";
+                            if($error==2)
                                 echo "Kod za popust je nevažeći!";
 
 

@@ -552,7 +552,7 @@ function cart(){
 
 
 
-    if(isset($_GET['add_cart']) && isset($_GET['qty'])){
+    if(isset($_GET['add_cart']) && isset($_GET['qty']) && is_numeric($_GET['qty'])){
 
 
         $qty=$_GET['qty'];
@@ -581,7 +581,24 @@ function cart(){
 
         if(mysqli_num_rows($run_check)>0){
 
-            echo "";
+            $newbie = "select * from cart where id_user = $id_user  AND g_id='$id_guma' ";
+
+            $run = mysqli_query($con, $newbie);
+
+            while ($row_pro = mysqli_fetch_array($run)) {
+
+                $new_qty = $row_pro['qty'];
+
+
+                $total_qty = $new_qty + $qty;
+
+                $update_cart = "UPDATE cart SET qty = $total_qty where g_id = '$id_guma'";
+
+                $run_update = mysqli_query($con, $update_cart);
+
+
+            }
+
 
         }
 
@@ -601,7 +618,6 @@ function cart(){
     }
 
 }
-
 /*function  dada()
 {
     global $con;
@@ -708,13 +724,13 @@ function narudzba()
             <td colspan="" style="text-align:center;font-family: 'Bebas Neue Regular';color: #858585">
                 <?php if($status == 0)
                 {
-                    echo "Poručeno";
+                    echo "<p style='color:orange'>Poručeno</p>";
                 }else if($status == 1)
                 {
-                    echo "Priprema";
+                    echo "<p style='color:orange'>Priprema</p>";
                 }else if($status ==2 )
                 {
-                    echo "U tranzitu";
+                    echo "<p style='color:orange'>U tranzitu</p>";
                 }
                 ?></td>
             <td colspan="" style="text-align:center;font-family: 'Bebas Neue Regular';color: #858585"><?php echo $datum ?></td>

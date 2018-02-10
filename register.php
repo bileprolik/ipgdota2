@@ -21,12 +21,15 @@ if($captcha != $_SESSION["code"])
     exit();
 }
 
+
 if(strlen($password) < 8)
 {
     $_SESSION['message'] = "Lozinka mora imati najmanje 8 karaktera!";
     header("location: error.php");
     exit();
 }
+
+
 
 $result = $con->query("SELECT * FROM users WHERE email='$email'") or die($con->error());
 
@@ -37,7 +40,7 @@ if ( $result->num_rows > 0 ) {
     header("location: error.php");
     
 }
-else {
+else  {
 
 
     $sql = "INSERT INTO users (first_name, last_name, email, password, hash) " 
